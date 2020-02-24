@@ -20,6 +20,11 @@ constructor(
 //     val mApiHelper: ApiHelper,
 //     val mGson: Gson
 ) : DataManager {
+    override fun setUserAsLoggedOut() {
+        updateUserInfo(
+            DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT)
+    }
+
     override fun getCurrentUserLoggedInMode(): Int {
         return mPreferencesHelper.getCurrentUserLoggedInMode()
     }

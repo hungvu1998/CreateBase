@@ -10,6 +10,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(dataManager: DataManager, schedulerProvider: SchedulerProvider) :
     BaseViewModel<HomeNavigator>(dataManager, schedulerProvider) {
     fun logout() {
-
+        setIsLoading(true)
+        dataManager.setUserAsLoggedOut()
+        navigator?.openLoginActivity()
     }
 }

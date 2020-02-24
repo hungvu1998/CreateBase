@@ -9,6 +9,7 @@ import com.example.createbase.BR
 import com.example.createbase.ViewModelProviderFactory
 import com.example.createbase.databinding.ActivityHomeBinding
 import com.example.createbase.ui.base.BaseActivity
+import com.example.createbase.ui.login.LoginActivity
 import javax.inject.Inject
 
 
@@ -34,6 +35,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>(), HomeNav
         super.onCreate(savedInstanceState)
         mActivityHomeBinding = viewDataBinding
         mHomeViewModel!!.navigator=this
+
+    }
+
+    override fun openLoginActivity() {
+        hideLoading()
+        val intent = LoginActivity.newIntent(this@HomeActivity)
+        startActivity(intent)
+        finish()
     }
     companion object {
         fun newIntent(context: Context): Intent {

@@ -10,7 +10,7 @@ interface DataManager : DbHelper, PreferencesHelper, ApiHelper {
 
     abstract fun seedSplashDelay(): Observable<Boolean>
     abstract fun doLoginGoogleCall():Single<Boolean>
-
+    abstract fun setUserAsLoggedOut()
     abstract fun updateUserInfo(
         loggedInMode: LoggedInMode
     )
