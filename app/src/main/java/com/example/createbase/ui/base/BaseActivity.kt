@@ -103,6 +103,10 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppComp
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
     fun showLoading() {
         hideLoading()
         mProgressDialog = CommonUtils.showLoadingDialog(this)

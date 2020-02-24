@@ -83,23 +83,23 @@ class AppModule {
 //        return appDbHelper
 //    }
 
-//    @Provides
-//    @Singleton
-//     fun provideGson(): Gson {
-//        return GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
-//    }
+    @Provides
+    @Singleton
+     fun provideGson(): Gson {
+        return GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+    }
+
+    @Provides
+    @PreferenceInfo
+     fun providePreferenceName(): String {
+        return AppConstants.PREF_NAME
+    }
 //
-//    @Provides
-//    @PreferenceInfo
-//     fun providePreferenceName(): String {
-//        return AppConstants.PREF_NAME
-//    }
-//
-//    @Provides
-//    @Singleton
-//     fun providePreferencesHelper(appPreferencesHelper: AppPreferencesHelper): PreferencesHelper {
-//        return appPreferencesHelper
-//    }
+    @Provides
+    @Singleton
+     fun providePreferencesHelper(appPreferencesHelper: AppPreferencesHelper): PreferencesHelper {
+        return appPreferencesHelper
+    }
 
 //    @Provides
 //    @Singleton

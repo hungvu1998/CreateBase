@@ -1,15 +1,21 @@
 package com.example.createbase.ui.login
 
+import android.content.Context
 import android.text.TextUtils
+import com.example.createbase.R
 import com.example.createbase.data.DataManager
 import com.example.createbase.ui.base.BaseViewModel
 import com.example.createbase.utils.CommonUtils
 import com.example.createbase.utils.rx.SchedulerProvider
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(dataManager: DataManager, schedulerProvider: SchedulerProvider) :
     BaseViewModel<LoginNavigator>(dataManager, schedulerProvider) {
-
+    lateinit var apiClient : GoogleApiClient
     fun isEmailAndPasswordValid(email: String, password: String): Boolean {
         // validate email and password
         if (TextUtils.isEmpty(email)) {
@@ -20,67 +26,16 @@ class LoginViewModel @Inject constructor(dataManager: DataManager, schedulerProv
         }
         return !TextUtils.isEmpty(password)
     }
+    fun onGoogleLoginClick(){
 
-    fun login(email: String, password: String) {
-        setIsLoading(true)
-//        compositeDisposable.add(dataManager.
-//            .doServerLoginApiCall(LoginRequest.ServerLoginRequest(email, password))
-//            .doOnSuccess({ response ->
-//                getDataManager()
-//                    .updateUserInfo(
-//                        response.getAccessToken(),
-//                        response.getUserId(),
-//                        DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER,
-//                        response.getUserName(),
-//                        response.getUserEmail(),
-//                        response.getGoogleProfilePicUrl()
-//                    )
-//            })
-//            .subscribeOn(getSchedulerProvider().io())
-//            .observeOn(getSchedulerProvider().ui())
-//            .subscribe({ response ->
-//                setIsLoading(false)
-//                getNavigator().openMainActivity()
-//            }, { throwable ->
-//                setIsLoading(false)
-//                getNavigator().handleError(throwable)
-//            })
-//        )
+        navigator?.loginGG()
+    }
+    fun updateUserInfo(){
+        dataManager.updateUserInfo(
+            DataManager.LoggedInMode.LOGGED_IN_MODE_FB
+        )
         navigator?.openMainActivity()
-    }
-
-    fun onFbLoginClick() {
-//        setIsLoading(true)
-//        getCompositeDisposable().add(getDataManager()
-//            .doFacebookLoginApiCall(LoginRequest.FacebookLoginRequest("test3", "test4"))
-//            .doOnSuccess({ response ->
-//                getDataManager()
-//                    .updateUserInfo(
-//                        response.getAccessToken(),
-//                        response.getUserId(),
-//                        DataManager.LoggedInMode.LOGGED_IN_MODE_FB,
-//                        response.getUserName(),
-//                        response.getUserEmail(),
-//                        response.getGoogleProfilePicUrl()
-//                    )
-//            })
-//            .subscribeOn(getSchedulerProvider().io())
-//            .observeOn(getSchedulerProvider().ui())
-//            .subscribe({ response ->
-//                setIsLoading(false)
-//                getNavigator().openMainActivity()
-//            }, { throwable ->
-//                setIsLoading(false)
-//                getNavigator().handleError(throwable)
-//            })
-//        )
-    }
-
-    fun onGoogleLoginClick() {
 
     }
 
-    fun onServerLoginClick() {
-
-    }
 }

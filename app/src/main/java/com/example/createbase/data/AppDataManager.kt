@@ -14,12 +14,35 @@ import javax.inject.Singleton
 @Singleton
 class AppDataManager @Inject
 constructor(
-     val mContext: Context
+     val mContext: Context,
 //     val mDbHelper: DbHelper,
-//     val mPreferencesHelper: PreferencesHelper,
+     val mPreferencesHelper: PreferencesHelper
 //     val mApiHelper: ApiHelper,
 //     val mGson: Gson
 ) : DataManager {
+    override fun getCurrentUserLoggedInMode(): Int {
+        return mPreferencesHelper.getCurrentUserLoggedInMode()
+    }
+
+    override fun setCurrentUserLoggedInMode(mode: DataManager.LoggedInMode) {
+        mPreferencesHelper.setCurrentUserLoggedInMode(mode)
+    }
+
+    override fun updateUserInfo(loggedInMode: DataManager.LoggedInMode) {
+        setCurrentUserLoggedInMode(loggedInMode)
+    }
+
+    override fun doLoginGoogleCall(): Single<Boolean> {
+        return Single.just(false)
+    }
+
+//    override fun getCurrentUserLoggedInMode(): Int {
+//       return mPreferencesHelper.getCurrentUserLoggedInMode()
+//    }
+
+    override fun seedSplashDelay(): Observable<Boolean> {
+        return Observable.just(false)
+    }
 
 
     companion object {

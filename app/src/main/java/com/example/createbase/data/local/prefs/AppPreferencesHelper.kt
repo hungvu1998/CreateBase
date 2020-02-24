@@ -8,11 +8,21 @@ import com.example.createbase.utils.AppConstants
 import javax.inject.Inject
 
 
-class AppPreferencesHelper
+class AppPreferencesHelper @Inject
 constructor(context: Context, @PreferenceInfo prefFileName: String) : PreferencesHelper {
+    override fun setCurrentUserLoggedInMode(mode: DataManager.LoggedInMode) {
+        mPrefs.edit().putInt(PREF_KEY_USER_LOGGED_IN_MODE, mode.type).apply()
+    }
+
+    override fun getCurrentUserLoggedInMode(): Int {
+        return mPrefs.getInt(
+            PREF_KEY_USER_LOGGED_IN_MODE,
+            DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.type
+        )
+    }
 
 
-     val mPrefs: SharedPreferences
+    val mPrefs: SharedPreferences
 
      var accessToken: String?
         get() = mPrefs.getString(PREF_KEY_ACCESS_TOKEN, null)

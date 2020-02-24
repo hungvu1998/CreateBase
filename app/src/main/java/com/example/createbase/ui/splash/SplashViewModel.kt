@@ -10,25 +10,23 @@ constructor(dataManager: DataManager, schedulerProvider: SchedulerProvider) :
     BaseViewModel<SplashNavigator>(dataManager, schedulerProvider) {
 
     fun startSeeding() {
-//        compositeDisposable.add(
-//            dataManager()
-//                .seedDatabaseQuestions()
-//                .flatMap({ aBoolean -> getDataManager().seedDatabaseOptions() })
-//                .subscribeOn(getSchedulerProvider().io())
-//                .observeOn(getSchedulerProvider().ui())
-//                .subscribe(
-//                    { aBoolean -> decideNextActivity() },
-//                    { throwable -> decideNextActivity() })
-//        )
+        compositeDisposable.add(
+            dataManager
+                .seedSplashDelay()
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe(
+                    { aBoolean -> decideNextActivity() },
+                    { throwable -> decideNextActivity() })
+        )
         decideNextActivity()
     }
 
      fun decideNextActivity() {
-        navigator?.openLoginActivity()
-//        if (dataManager.getCurrentUserLoggedInMode() === DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.getType()) {
-//            getNavigator().openLoginActivity()
-//        } else {
-//            getNavigator().openMainActivity()
-//        }
+        if (dataManager.getCurrentUserLoggedInMode() === DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT.type) {
+            navigator?.openLoginActivity()
+        } else {
+            navigator?.openMainActivity()
+        }
     }
 }
